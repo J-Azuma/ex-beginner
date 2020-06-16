@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.form.UserForm;
+import com.example.domain.*;
+
 
 @Controller
 @RequestMapping("/ex04")
@@ -18,19 +21,19 @@ public class Exam04Controller {
 	}
 	
 	@RequestMapping("")
-	public String index(Model model) {
+	public String index() {
 		return "exam04/exam04";
 	}
 	
-	//とりあえずジェネリクスだけ生成
 	@RequestMapping("/input-values")
 	public String inputValues(@Validated UserForm userForm, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			return index(model);
+			return index();
 		}
-		model.addAttribute("name", userForm.getName());
-		model.addAttribute("age", userForm.getAge());
-		model.addAttribute("comment", userForm.getComment());
+		
+		User user = new User();
+		BeanUtils.copyProperties(userForm, user);
+		model.addAttribute("user", user);
 		//まだ
 		return "exam04/exam04-result.html";
 	}
