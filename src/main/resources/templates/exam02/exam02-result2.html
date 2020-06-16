@@ -5,9 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="" th:action="@{/ex01/input-name}" method="post">
-		name: <input type="text" name="name"> <br>
-		<button>送信</button>
-	</form>
+足し算結果画面 <br />
+<span th:text="${session.num1}"></span> + <span th:text="${session.num1}"></span>  = <span th:text="${session.answer}"></span>
 </body>
 </html>
